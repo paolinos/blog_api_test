@@ -1,0 +1,153 @@
+openapi: 3.0.0
+info:
+  title: "Blog"
+  description: "This is a Blog OpenApi design specification"
+  version: "0.0.1"
+
+
+servers:
+- url: https://localhost/v1/
+  description: Development server
+  variables:
+    port:
+      enum:
+        - '5000'
+      default: '5000'
+      basePath:
+        default: v1
+
+# Paths
+paths:
+
+    /articles:
+      get:
+        tags:
+          - Articles
+        description: "Return last Articles by of the blog"
+        responses:
+          "200":
+            description: OK
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/ArticleNew'
+                  
+          '400':
+            description: Bad request. User ID must be an integer and larger than 0.
+          '401':
+            description: Authorization information is missing or invalid.
+          '404':
+            description: A user with the specified ID was not found.
+          '5XX':
+            description: Unexpected err
+      
+      #                                                        POST articles
+      post:
+        tags:
+          - Articles
+        description: "Create new Article"
+        requestBody:
+          required: true
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Article'
+        
+        responses:
+          "201":
+            description: Created
+      
+    /articles/{title}:
+      #                                                        GET articles/{title} 
+      get:
+        tags:
+          - Articles
+        description: "Return an Article"
+        parameters:
+        - name: title
+          in: path
+          description: title of the article
+          required: true
+          type: String
+        responses:
+          '200':
+            description: OK
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Article'
+      #                                                        PUT articles/{title}
+      put:
+        tags:
+          - Articles
+        description: "Update Article"
+        parameters:
+        - name: title
+          in: path
+          description: title of the article
+          required: true
+          type: String
+        responses:
+          '200':
+            description: OK
+      #                                                        DELETE articles/{title}
+      delete:
+        tags:
+          - Articles
+        description: "Delete Article"
+        parameters:
+        - name: title
+          in: path
+          description: title of the article
+          required: true
+          type: String
+        responses:
+          '200':
+            description: OK
+            
+components:
+  #------------------------------------------------------              Schemas
+  schemas:
+    #                                                        Article - Schema
+    Article:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        short_description:
+          type: string
+        description:
+          type: string
+        comments:
+          type: integer
+        image:
+          type: image / string
+          format: byte
+          description: Base64 image
+        created_at:
+          type: date
+        updated_at:
+          type: date
+        created_by:
+          type: string
+        created_by_username:
+          type: string
+    
+    #                                                        Article New - Schema
+    ArticleNew:
+      type: object
+      properties:
+        title:
+          type: string
+        short_description:
+          type: string
+        description:
+          type: string
+        image:
+          type: image / string
+          format: byte
+          description: Base64 image
