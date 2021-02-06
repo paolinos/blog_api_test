@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 using Blog.Api.Interfaces.Models;
+using Blog.Api.Interfaces.Repository;
 using Blog.Api.Models;
 
 namespace Blog.Api.Controllers
@@ -18,20 +19,18 @@ namespace Blog.Api.Controllers
     public class ArticleController : ControllerBase
     {
         private readonly ILogger<ArticleController> _logger;
+        private readonly IArticleRepository _articleRepository;
 
-        public ArticleController(ILogger<ArticleController> logger)
+        public ArticleController(ILogger<ArticleController> logger, IArticleRepository articleRepository)
         {
             _logger = logger;
+            _articleRepository = articleRepository;
         }
 
         [HttpGet]
         public async Task<IEnumerable<IArticleEntity>> GetLastArticles()
         {
-            //TODO: Delete & implement Repository
-            await Task.Delay(1);
-
-
-            return new List<IArticleEntity>();
+            return await _articleRepository.GetLastArticles();
 
             //return NotFound();
             //return CreatedAtAction(nameof(GetById), new { id = product.Id }, product)
@@ -47,10 +46,8 @@ namespace Blog.Api.Controllers
                 return BadRequest("Title is invalid");
             }
 
-            var model = new Article();
-            model.Title = title;
             //return model;
-            return Ok(model);
+            return Ok(await _articleRepository.GetArticleByTitle(title));
             //return CreatedAtAction("Get", new { title = model.Id }, product)
         }
 

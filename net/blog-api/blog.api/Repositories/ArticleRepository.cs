@@ -28,7 +28,9 @@ namespace Blog.Api.Repository
         {
             await Task.Delay(1);
 
-            return new Article();
+            return new Article(){
+                Title=title
+            };
         }
 
         public async Task AddNewArticle(uint userId, string title, IArticleInput article)
