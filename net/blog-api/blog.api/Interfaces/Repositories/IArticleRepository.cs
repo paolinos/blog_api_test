@@ -10,12 +10,12 @@ namespace Blog.Api.Interfaces.Repository
     {
         Task<IEnumerable<IArticleEntity>> GetLastArticles();
 
-        Task<IArticleEntity> GetArticleByTitle(string title);
+        Task<IArticleEntity> GetArticleByPath(string path);
 
-        Task AddNewArticle(uint userId, string title, IArticleInput article);
+        Task AddNewArticle(uint userId, string path, IArticleInput article);
 
-        Task UpdateArticle(uint userId, string title, IArticleInput article);
+        Task UpdateArticle(uint userId, string path, IArticleInput article);
 
-        Task DeleteArticle(uint userId, string title);
+        Task DeleteArticle(uint userId, string path);
     }
 }

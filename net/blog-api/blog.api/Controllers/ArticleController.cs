@@ -37,17 +37,17 @@ namespace Blog.Api.Controllers
         }
 
         [HttpGet("{title}")]
-        public async Task<ActionResult<IArticleEntity>> GetArticleByTitle(string title)
+        public async Task<ActionResult<IArticleEntity>> GetArticle(string path)
         {
             //TODO: Delete & implement Repository
             await Task.Delay(1);
 
-            if(String.IsNullOrWhiteSpace(title)){
-                return BadRequest("Title is invalid");
+            if(String.IsNullOrWhiteSpace(path)){
+                return BadRequest("Path is invalid");
             }
 
             //return model;
-            return Ok(await _articleRepository.GetArticleByTitle(title));
+            return Ok(await _articleRepository.GetArticleByPath(path));
             //return CreatedAtAction("Get", new { title = model.Id }, product)
         }
 

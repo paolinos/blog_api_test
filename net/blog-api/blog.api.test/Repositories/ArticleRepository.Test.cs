@@ -25,13 +25,13 @@ namespace Blog.Api.Test
 
 
         [Fact]
-        public async Task GetArticleByTitle_And_ResultShouldNotBeEmpty()
+        public async Task GetArticleByPath_And_ResultShouldNotBeEmpty()
         {
             // Arrange
             var repo = new ArticleRepository();
 
             // Act
-            var result1 = await repo.GetArticleByTitle("some title");
+            var result1 = await repo.GetArticleByPath("some title");
 
             // Assert
             Assert.NotNull(result1);

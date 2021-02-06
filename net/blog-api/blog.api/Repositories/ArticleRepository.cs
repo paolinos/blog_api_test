@@ -24,26 +24,26 @@ namespace Blog.Api.Repository
             return Artiles;
         }
         
-        public async Task<IArticleEntity> GetArticleByTitle(string title)
+        public async Task<IArticleEntity> GetArticleByPath(string path)
         {
             await Task.Delay(1);
 
             return new Article(){
-                Title=title
+                Path=path
             };
         }
 
-        public async Task AddNewArticle(uint userId, string title, IArticleInput article)
+        public async Task AddNewArticle(uint userId, string path, IArticleInput article)
         {
             await Task.Delay(1);
         }
 
-        public async Task UpdateArticle(uint userId, string title, IArticleInput article)
+        public async Task UpdateArticle(uint userId, string path, IArticleInput article)
         {
             await Task.Delay(1);
         }
 
-        public async Task DeleteArticle(uint userId, string title)
+        public async Task DeleteArticle(uint userId, string path)
         {
             await Task.Delay(1);
         }
